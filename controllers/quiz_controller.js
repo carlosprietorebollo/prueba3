@@ -187,6 +187,7 @@ exports.check = function (req, res, next) {
         answer: answer
     });
 };
+
 exports.checkGraus = function (req, res, next) {
 
     var answer = req.query.answer || "";
@@ -199,6 +200,7 @@ exports.checkGraus = function (req, res, next) {
         answer: answer
     });
 };
+
 exports.random = function(req, res, next){
     models.Quiz.findOne({
         order : [
