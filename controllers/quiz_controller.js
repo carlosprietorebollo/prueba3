@@ -194,7 +194,7 @@ exports.random = function(req, res, next){
         ]
     });
     res.render('quizzes/random_play', {
-        quiz : pene,
+        quiz : {question: 'Penetaaaaa', answer: 'Josean es Dios'},
         score : 0
     });
 }
