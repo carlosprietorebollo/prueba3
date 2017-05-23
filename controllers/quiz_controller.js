@@ -6,7 +6,6 @@ var paginate = require('../helpers/paginate').paginate;
 // Autoload el quiz asociado a :quizId
 exports.load = function (req, res, next, quizId) {
 
-    console.log("Entra en load");
     models.Quiz.findById(quizId)
     .then(function (quiz) {
         if (quiz) {
@@ -26,6 +25,7 @@ exports.load = function (req, res, next, quizId) {
 exports.index = function (req, res, next) {
 
     var countOptions = {};
+    console.log("Entra en index");
 
     // Busquedas:
     var search = req.query.search || '';
