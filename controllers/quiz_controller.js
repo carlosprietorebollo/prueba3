@@ -188,20 +188,32 @@ exports.check = function (req, res, next) {
     });
 };
 
+exports.checkGraus = function (req, res, next) {
 
-exports.random = function (req, res, next) {
-    models.Quiz.count()
-        .then (function (count) {
-            var id = Math.floor(Math.random() * count);
-            models.Quiz.findById(id)
-                .then (function (quiz) {
-                    res.render('quizzes/random_play', {
-                        score: 0,
-                        quiz: quiz
-                    });
-                });
-        })
-        .catch(function (error) {
-            
-        });
+    var answer = req.query.answer || "";
+
+    var result = answer.toLowerCase().trim() === req.quiz.answer.toLowerCase().trim();
+    var variableQueMeSaleDelNardo = 0;
+    if(result){
+        variableQueMeSaleDelNardo = 1;
+    }
+
+    res.render('quizzes/random_result', {
+        score : variableQueMeSaleDelNardo,
+        result: result,
+        answer: answer
+    });
 };
+
+exports.random = function(req, res, next){
+    models.Quiz.findOne({
+        order : [
+            Sequelize.fn('RANDOM'),
+        ]
+    }).then(function (pene){
+        res.render('quizzes/random_play', {
+        quiz : pene,
+        score : 0
+    });
+    })
+}

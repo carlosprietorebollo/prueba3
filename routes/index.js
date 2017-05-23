@@ -19,10 +19,11 @@ router.get('/help', function (req, res, next) {
    res.render('help');
 });
 
-
 // Autoload de rutas que usen :quizId
 router.param('quizId', quizController.load);
 
+router.get('/quizzes/randomplay', quizController.random);
+router.get('/quizzes/randomcheck/:quizId(\\d+)', quizController.checkGraus);
 
 // Definición de rutas de /quizzes
 router.get('/quizzes',                     quizController.index);
@@ -35,8 +36,6 @@ router.delete('/quizzes/:quizId(\\d+)',    quizController.destroy);
 
 router.get('/quizzes/:quizId(\\d+)/play',  quizController.play);
 router.get('/quizzes/:quizId(\\d+)/check', quizController.check);
-
-router.get('/quizzes/randomplay', quizController.random);
 
 
 module.exports = router;
