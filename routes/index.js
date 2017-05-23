@@ -17,6 +17,8 @@ router.get('/author', function(req, res, next) {
 
 router.get('/quizzes/randomplay', quizController.random);
 
+router.get('/quizzes/randomckeck/:quizId(\\d+)', quizController.check);
+
 router.get('/help', function (req, res, next) {
    res.render('help');
 });
@@ -25,7 +27,9 @@ router.get('/help', function (req, res, next) {
 // Autoload de rutas que usen :quizId
 router.param('quizId', quizController.load);
 
+router.get('/quizzes/randomplay', quizController.random);
 
+router.get('/quizzes/randomckeck/:quizId(\\d+)', quizController.checkGraus);
 // Definición de rutas de /quizzes
 router.get('/quizzes',                     quizController.index);
 router.get('/quizzes/:quizId(\\d+)',       quizController.show);

@@ -187,6 +187,18 @@ exports.check = function (req, res, next) {
         answer: answer
     });
 };
+exports.checkGraus = function (req, res, next) {
+
+    var answer = req.query.answer || "";
+
+    var result = answer.toLowerCase().trim() === req.quiz.answer.toLowerCase().trim();
+
+    res.render('quizzes/random_result', {
+        score : 0,
+        result: result,
+        answer: answer
+    });
+};
 exports.random = function(req, res, next){
     models.Quiz.findOne({
         order : [
