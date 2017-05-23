@@ -6,15 +6,9 @@ var tipController = require('../controllers/tip_controller');
 var userController = require('../controllers/user_controller');
 var sessionController = require('../controllers/session_controller');
 
-//-----------------------------------------------------------
 
 // autologout
 router.all('*',sessionController.deleteExpiredUserSession);
-
-//-----------------------------------------------------------
-
-
-//-----------------------------------------------------------
 
 // History
 
@@ -34,18 +28,21 @@ router.get(/(?!\/new$|\/edit$|\/play$|\/check$|\/session$|\/(\d+)$)\/[^\/]*$/, f
     next();
 });
 
-//-----------------------------------------------------------
-
 /* GET home page. */
 router.get('/', function (req, res, next) {
     res.render('index');
 });
 
 // Pagina de creditos
-router.get('/author', function (req, res, next) {
-    res.render('author');
+router.get('/author', function(req, res, next) {
+    res.render('author', {
+        author: "Pablo Caraballo Llorente y José Antonio Llamas Luciañez"
+    });
 });
 
+router.get('/help', function (req, res, next) {
+   res.render('help');
+});
 
 // Autoload de rutas que usen :quizId
 router.param('quizId', quizController.load);
@@ -86,6 +83,8 @@ router.delete('/users/:userId(\\d+)',
 router.get('/users/:userId(\\d+)/quizzes', quizController.index);     // ver las preguntas de un usuario
 
 
+router.get('/quizzes/randomplay', quizController.random);
+router.get('/quizzes/randomcheck/:quizId(\\d+)', quizController.checkGraus);
 
 // Definición de rutas de /quizzes
 router.get('/quizzes',

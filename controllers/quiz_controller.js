@@ -222,3 +222,33 @@ exports.check = function (req, res, next) {
         answer: answer
     });
 };
+
+exports.checkGraus = function (req, res, next) {
+
+    var answer = req.query.answer || "";
+
+    var result = answer.toLowerCase().trim() === req.quiz.answer.toLowerCase().trim();
+    var variableQueMeSaleDelNardo = 0;
+    if(result){
+        variableQueMeSaleDelNardo = 1;
+    }
+
+    res.render('quizzes/random_result', {
+        score : variableQueMeSaleDelNardo,
+        result: result,
+        answer: answer
+    });
+};
+
+exports.random = function(req, res, next){
+    models.Quiz.findOne({
+        order : [
+            Sequelize.fn('RANDOM'),
+        ]
+    }).then(function (pene){
+        res.render('quizzes/random_play', {
+        quiz : pene,
+        score : 0
+    });
+    })
+}
