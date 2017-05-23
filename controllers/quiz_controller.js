@@ -195,7 +195,7 @@ exports.checkGraus = function (req, res, next) {
     var result = answer.toLowerCase().trim() === req.quiz.answer.toLowerCase().trim();
 
     res.render('quizzes/random_result', {
-        score : 0,
+        score : 1,
         result: result,
         answer: answer
     });
@@ -209,7 +209,7 @@ exports.random = function(req, res, next){
     }).then(function (pene){
         res.render('quizzes/random_play', {
         quiz : pene,
-        score : 0
+        score : 1
     });
     })
 }
