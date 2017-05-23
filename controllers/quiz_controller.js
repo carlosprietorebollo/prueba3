@@ -25,7 +25,6 @@ exports.load = function (req, res, next, quizId) {
 exports.index = function (req, res, next) {
 
     var countOptions = {};
-    console.log("Entra en index");
 
     // Busquedas:
     var search = req.query.search || '';
