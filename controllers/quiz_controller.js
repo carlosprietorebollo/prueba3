@@ -188,13 +188,14 @@ exports.check = function (req, res, next) {
     });
 };
 exports.random = function(req, res, next){
-    var pene = models.Quiz.findOne({
+    models.Quiz.findOne({
         order : [
             Sequelize.fn('RANDOM'),
         ]
-    });
-    res.render('quizzes/random_play', {
-        quiz : {question: 'Penetaaaaa', answer: 'Josean es Dios'},
+    }).then(function (pene){
+        res.render('quizzes/random_play', {
+        quiz : pene,
         score : 0
     });
+    })
 }
