@@ -15,6 +15,8 @@ router.get('/author', function(req, res, next) {
     });
 });
 
+router.get('/quizzes/randomplay', quizController.random);
+
 router.get('/help', function (req, res, next) {
    res.render('help');
 });
