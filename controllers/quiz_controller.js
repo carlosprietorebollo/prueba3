@@ -243,7 +243,7 @@ exports.checkGraus = function (req, res, next) {
 exports.random = function(req, res, next){
     models.Quiz.findOne({
         order : [
-            Sequelize.fn('RANDOM'),
+            Sequelize.fn('RANDOM')
         ]
     }).then(function (pene){
         res.render('quizzes/random_play', {
@@ -251,4 +251,4 @@ exports.random = function(req, res, next){
         score : 0
     });
     })
-}
+};

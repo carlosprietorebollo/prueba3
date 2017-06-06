@@ -17,13 +17,15 @@ module.exports = {
                 password: encryptPassword('1234', 'aaaa'),
                 salt: 'aaaa',
                 isAdmin: true,
-                createdAt: new Date(), updatedAt: new Date()
+                createdAt: new Date(),
+                updatedAt: new Date()
             },
             {
                 username: 'pepe',
                 password: encryptPassword('5678', 'bbbb'),
                 salt: 'bbbb',
-                createdAt: new Date(), updatedAt: new Date()
+                createdAt: new Date(),
+                updatedAt: new Date()
             }
         ]);
     },

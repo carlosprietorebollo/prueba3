@@ -19,6 +19,20 @@ exports.load = function (req, res, next, tipId) {
     });
 };
 
+// MW que permite acciones solamente si al usuario logeado es admin o es el autor del quiz.
+exports.adminOrAuthorRequired = function(req, res, next){
+
+    var isAdmin  = req.session.user.isAdmin;
+    var isAuthor = req.quiz.AuthorId === req.session.user.id;
+
+    if (isAdmin || isAuthor) {
+        next();
+    } else {
+        console.log('Operación prohibida: El usuario logeado no es el autor del quiz, ni un administrador.');
+        res.send(403);
+    }
+};
+
 
 // GET /quizzes/:quizId/tips/new
 exports.new = function (req, res, next) {
@@ -39,6 +53,7 @@ exports.create = function (req, res, next) {
 
     var tip = models.Tip.build(
         {
+            AuthorId: req.session.user.id,
             text: req.body.text,
             QuizId: req.quiz.id
         });
@@ -47,8 +62,7 @@ exports.create = function (req, res, next) {
     .then(function (tip) {
         req.flash('success', 'Pista creado con éxito.');
 
-        res.redirect("back");
-        // res.redirect('/quizzes/' + req.quiz.id);
+        res.redirect('/quizzes/' + req.quiz.id);
     })
     .catch(Sequelize.ValidationError, function (error) {
 
@@ -58,7 +72,7 @@ exports.create = function (req, res, next) {
         }
 
         // Necesario usar ""+ en la sentencia anterior porque se pierde la referencia al error.
-        res.redirect("back");
+        res.redirect('/quizzes/' + req.quiz.id);
     })
     .catch(function (error) {
         req.flash('error', 'Error al crear una Pista: ' + error.message);
@@ -86,13 +100,13 @@ exports.accept = function (req, res, next) {
 
 // DELETE /quizzes/:quizId/tips/:tipId
 exports.destroy = function (req, res, next) {
-
     req.tip.destroy()
-    .then(function () {
-        req.flash('success', 'Pista eliminada con éxito.');
-        res.redirect('/quizzes/' + req.params.quizId);
-    })
-    .catch(function (error) {
-        next(error);
-    });
+        .then(function () {
+            req.flash('success', 'Pista eliminada con éxito.');
+            res.redirect('/quizzes/' + req.params.quizId);
+        })
+        .catch(function (error) {
+            req.flash('error', 'Error al aceptar una Pista: ' + error.message);
+            next(error);
+        });
 };

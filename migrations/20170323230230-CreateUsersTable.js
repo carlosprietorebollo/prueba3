@@ -2,7 +2,8 @@
 
 module.exports = {
     up: function (queryInterface, Sequelize) {
-        return queryInterface.createTable('Users',
+        return queryInterface.createTable(
+            'Users',
             {
                 id: {
                     type: Sequelize.INTEGER,
@@ -20,7 +21,9 @@ module.exports = {
                 },
                 password: {
                     type: Sequelize.STRING,
-                    validate: {notEmpty: {msg: "Falta el password."}}
+                    validate: {
+                        notEmpty: {msg: "Falta el password."}
+                    }
                 },
                 salt: {
                     type: Sequelize.STRING

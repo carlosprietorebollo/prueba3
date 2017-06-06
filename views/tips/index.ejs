@@ -25,7 +25,7 @@
                 <a href="/quizzes/<%= quizId %>/tips/<%= tip.id %>?_method=DELETE"><button>Borrar</button></a>
 
             <% } %>
-
+        <p><b><%= tip.text%></b> por <span id="author"><%= quiz.Author.username%></span></p>
         </li>
     <% } %>
 </ul>
